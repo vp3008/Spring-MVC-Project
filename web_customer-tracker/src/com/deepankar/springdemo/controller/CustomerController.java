@@ -67,4 +67,23 @@ public class CustomerController
 		//send over to our form
 		return "customer-form";
 	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam("customerId") int theId)
+	{
+		customerService.deleteCustomer(theId);
+		return "redirect:/customer/list";
+	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam("theSearchName")String theSearchName, Model theModel)
+	{
+		List<Customer> customers = customerService.search(theSearchName);
+		
+		theModel.addAttribute("customers", customers);
+		
+		return "list-customers";
+	}
+	
+	
 }
